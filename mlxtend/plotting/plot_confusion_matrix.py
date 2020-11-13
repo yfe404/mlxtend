@@ -19,7 +19,8 @@ def plot_confusion_matrix(conf_mat,
                           show_normed=False,
                           class_names=None,
                           figure=None,
-                          axis=None):
+                          axis=None,
+                          rotation=45):
     """Plot a confusion matrix via matplotlib.
 
     Parameters
@@ -54,6 +55,8 @@ def plot_confusion_matrix(conf_mat,
         If None will create a new figure.
     axis : None or Matplotlib figure axis (default: None)
         If None will create a new axis.
+    rotation: If not 'None' rotate the text of the x-axis (class names) of roatation degrees
+        If None, the text will be horizontal (parallel to the x-axis, no rotation)
 
     Returns
     -----------
@@ -126,7 +129,10 @@ def plot_confusion_matrix(conf_mat,
                         else "black")
     if class_names is not None:
         tick_marks = np.arange(len(class_names))
-        plt.xticks(tick_marks, class_names, rotation=45)
+        if rotation is not None:
+            plt.xticks(tick_marks, class_names, rotation=rotation)
+        else:
+            plt.xticks(tick_marks, class_names)
         plt.yticks(tick_marks, class_names)
 
     if hide_spines:
